@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/colorPrimary" />
+    <item
+        android:width="96dp"
+        android:height="96dp"
+        android:bottom="100dp"
+        android:drawable="@drawable/ic_gold_ingots"
+        android:gravity="center" />
+    <item
+        android:drawable="@drawable/ic_gold_market"
+        android:top="75dp"
+        android:gravity="center" />
+</layer-list>
