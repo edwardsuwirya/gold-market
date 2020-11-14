@@ -5,4 +5,8 @@
     <string name="histori">Histori</string>
     <string name="profil">Profil</string>
 
+    <string name="button_begin">Mulai</string>
+    <string name="welcome_text1_begin">Selamat Datang</string>
+    <string name="welcome_text2_begin">Nabung emas? Disini saja</string>
+    <string name="welcome_image">Welcome Image</string>
 </resources>

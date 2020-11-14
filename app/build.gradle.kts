@@ -31,7 +31,11 @@ android {
 }
 val kotlin_version = "1.4.10"
 val material_version = "1.2.1"
+val kotlin_coroutine_version = "1.4.1"
+
 dependencies {
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutine_version")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutine_version")
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
     implementation("androidx.core:core-ktx:1.3.2")
