@@ -3,4 +3,9 @@
     <color name="colorPrimary">#003F88</color>
     <color name="colorPrimaryDark">#00296B</color>
     <color name="colorAccent">#FDC500</color>
+
+    <color name="primaryYellow">#bf8753</color>
+    <color name="tabNavigaitonActiveColor">#9f6207</color>
+    <color name="tabNavigationInactivColor">#c4c4c4</color>
+
 </resources>
