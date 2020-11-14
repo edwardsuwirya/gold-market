@@ -9,4 +9,14 @@
     <string name="welcome_text1_begin">Selamat Datang</string>
     <string name="welcome_text2_begin">Nabung emas? Disini saja</string>
     <string name="welcome_image">Welcome Image</string>
+
+    <string name="registration_text">Registrasi</string>
+    <string name="first_name_label">Nama Depan</string>
+    <string name="last_name_label">Nama Belakang</string>
+    <string name="email_label">Email</string>
+    <string name="password_label">Kata Kunci</string>
+    <string name="register_label">Daftar</string>
+
+    <string name="have_account_label">Sudah memiliki akun?</string>
+    <string name="signin_label"><u><b>Sign In</b></u></string>
 </resources>
