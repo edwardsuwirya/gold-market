@@ -13,8 +13,10 @@ class SignInActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_in)
         signInButton = findViewById(R.id.login_button)
         signInButton.setOnClickListener {
-
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
+
         signUpButton = findViewById(R.id.signup_button)
         signUpButton.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
