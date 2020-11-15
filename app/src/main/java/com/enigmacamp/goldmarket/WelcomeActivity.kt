@@ -3,6 +3,7 @@ package com.enigmacamp.goldmarket
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 
 class WelcomeActivity : AppCompatActivity() {
@@ -14,5 +15,10 @@ class WelcomeActivity : AppCompatActivity() {
         beginButton.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
         }
+    }
+
+    fun onMulaiClicked(view: View) {
+        var intent: Intent = Intent( this, MainActivity::class.java)
+        startActivity(intent)
     }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home_menu"
+        android:title="@string/home"/>
+
+    <item
+        android:id="@+id/histori_menu"
+        android:title="@string/histori"/>
+
+    <item
+        android:id="@+id/profil_menu"
+        android:title="@string/profil"/>
+
+</menu>
