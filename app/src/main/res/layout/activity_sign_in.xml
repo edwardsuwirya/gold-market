@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpActivity">
-
+    tools:context=".SignInActivity">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -38,39 +37,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
-                android:text="@string/registration_text"
+                android:text="@string/signin_header_label"
                 android:textColor="@color/primary"
                 android:textSize="30sp"
                 android:textStyle="bold" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/first_name_textField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:hint="@string/first_name_label"
-                android:textColorHint="@color/primary"
-                app:boxBackgroundMode="filled">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/last_name_textField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:hint="@string/last_name_label"
-                android:textColorHint="@color/primary">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/email_textField"
@@ -101,12 +71,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/new_signup_button"
+                android:id="@+id/login_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:backgroundTint="@color/accent"
-                android:text="@string/register_header_label"
+                android:text="@string/signin_header_label"
                 android:textColor="@color/primary" />
 
             <LinearLayout
@@ -118,15 +88,15 @@
                     android:id="@+id/have_account_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/have_account_label"
+                    android:text="@string/no_have_account_label"
                     android:textColor="@color/primary" />
 
                 <Button
-                    android:id="@+id/signin_button"
+                    android:id="@+id/signup_button"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/signin_label" />
+                    android:text="@string/register_label" />
             </LinearLayout>
 
         </LinearLayout>
