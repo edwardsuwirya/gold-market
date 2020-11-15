@@ -19,4 +19,9 @@
     <string name="signin_header_label">Sign In</string>
     <string name="no_have_account_label">Belum memiliki akun?</string>
     <string name="register_label"><u><b>Daftar</b></u></string>
+
+    <string name="nav_home_label">Home</string>
+    <string name="nav_history_label">History</string>
+    <string name="nav_profile_label">Profile</string>
+
 </resources>
