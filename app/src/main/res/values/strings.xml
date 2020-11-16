@@ -21,4 +21,5 @@
     <string name="register_label"><u><b>Daftar</b></u></string>
 
     <string name="loading_label">Harap tunggu...</string>
+    <string name="tc_label">Syarat &amp; Ketentuan</string>
 </resources>
