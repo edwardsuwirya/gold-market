@@ -9,7 +9,7 @@ import com.enigmacamp.goldmarket.fragments.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.ArrayList
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
 
     private val name = "Jhon Thor"
     private val gold_amount = "20"
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity(){
         makeCurrentFragment(homeFragment, "Home")
 
         bottom_navigation.setOnNavigationItemSelectedListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.ic_home -> makeCurrentFragment(homeFragment, it.title.toString())
                 R.id.ic_history -> makeCurrentFragment(historyFragment, it.title.toString())
                 R.id.ic_profile -> {
@@ -47,11 +47,11 @@ class MainActivity : AppCompatActivity(){
     private fun makeCurrentFragment(fragment: Fragment, fragmentTitle: String) =
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.fl_container, fragment)
-            title  = fragmentTitle
+            title = fragmentTitle
             commit()
         }
 
-    public fun getProfile(): Array<String> {
+    fun getProfile(): Array<String> {
         val profile: Array<String> = arrayOf(name, gold_amount)
         return profile
     }
