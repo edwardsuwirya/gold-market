@@ -1,17 +1,18 @@
 package com.enigmacamp.goldmarket
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.enigmacamp.goldmarket.fragments.HistoryFragment
 import com.enigmacamp.goldmarket.fragments.HomeFragment
 import com.enigmacamp.goldmarket.fragments.ProfileFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.ArrayList
 
 class MainActivity : AppCompatActivity(){
+
+    private val name = "Jhon Thor"
+    private val gold_amount = "20"
 
     lateinit var homeFragment: Fragment
     lateinit var historyFragment: Fragment
@@ -31,7 +32,12 @@ class MainActivity : AppCompatActivity(){
             when(it.itemId){
                 R.id.ic_home -> makeCurrentFragment(homeFragment, it.title.toString())
                 R.id.ic_history -> makeCurrentFragment(historyFragment, it.title.toString())
-                R.id.ic_profile -> makeCurrentFragment(profileFragment, it.title.toString())
+                R.id.ic_profile -> {
+                    var b = Bundle()
+                    b.putStringArray("profile", getProfile())
+                    profileFragment.arguments = b
+                    makeCurrentFragment(profileFragment, it.title.toString())
+                }
             }
             true
         }
@@ -44,4 +50,9 @@ class MainActivity : AppCompatActivity(){
             title  = fragmentTitle
             commit()
         }
+
+    public fun getProfile(): Array<String> {
+        val profile: Array<String> = arrayOf(name, gold_amount)
+        return profile
+    }
 }

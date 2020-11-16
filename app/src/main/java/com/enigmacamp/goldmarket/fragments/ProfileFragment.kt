@@ -1,11 +1,13 @@
 package com.enigmacamp.goldmarket.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.enigmacamp.goldmarket.R
+import kotlinx.android.synthetic.main.fragment_home.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +24,9 @@ class ProfileFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    lateinit var name: TextView
+    lateinit var age: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -35,7 +40,18 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        var view: View = inflater.inflate(R.layout.fragment_profile, container, false)
+
+        val bundle = arguments
+        val profile = bundle!!.getStringArray("profile")
+
+        name = view.findViewById(R.id.name)
+        name.text = profile!![0]
+
+        age = view.findViewById(R.id.age)
+        age.text = profile!![1] + " gr emas"
+
+        return view
     }
 
     companion object {
