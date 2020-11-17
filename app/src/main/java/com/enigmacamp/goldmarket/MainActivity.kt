@@ -1,15 +1,13 @@
 package com.enigmacamp.goldmarket
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.enigmacamp.goldmarket.fragments.HistoryFragment
 import com.enigmacamp.goldmarket.fragments.HomeFragment
 import com.enigmacamp.goldmarket.fragments.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
     private var name = ""
@@ -30,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         name = "${authCustomer.firstName} ${authCustomer.lastName}"
         Log.d(TAG, name)
 
-        gold_amount = intent.getParcelableExtra(SignInActivity.INTENT_CUSTOMER_BALANCE)
+        gold_amount = intent.getIntExtra(SignInActivity.INTENT_CUSTOMER_BALANCE, 0)
         Log.d(TAG, gold_amount.toString())
 
         homeFragment = HomeFragment()

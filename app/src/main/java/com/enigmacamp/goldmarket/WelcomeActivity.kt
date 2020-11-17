@@ -15,6 +15,8 @@ class WelcomeActivity : AppCompatActivity() {
         beginButton.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
 //            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+            //Prevent multiple new activity
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent)
         }
         print("onCreate")

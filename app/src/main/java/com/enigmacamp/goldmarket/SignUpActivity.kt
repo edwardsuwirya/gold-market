@@ -73,7 +73,10 @@ class SignUpActivity : AppCompatActivity() {
         loadingDialog = LoadingDialog.build(this)
         signInButton = findViewById(R.id.signin_button)
         signInButton.setOnClickListener {
-            startActivity(Intent(this, SignInActivity::class.java))
+            val intent = Intent(this, SignInActivity::class.java)
+            //Prevent multiple new activity
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent)
         }
         signUpButton = findViewById(R.id.new_signup_button)
         signUpButton.setOnClickListener {

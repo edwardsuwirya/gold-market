@@ -52,7 +52,6 @@ class SignInActivity : AppCompatActivity() {
     }
 
     fun onStartSignUpActivity() {
-        startActivity(Intent(this, SignUpActivity::class.java))
         finish()
     }
 
