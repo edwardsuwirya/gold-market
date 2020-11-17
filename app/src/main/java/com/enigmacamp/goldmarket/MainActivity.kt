@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         historyFragment = HistoryFragment()
         profileFragment = ProfileFragment()
 
-        makeCurrentFragment(homeFragment, "Home")
+        makeCurrentFragment(homeFragment, "Gold Market")
 
         bottom_navigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
