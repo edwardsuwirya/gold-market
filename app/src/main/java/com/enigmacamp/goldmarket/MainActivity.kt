@@ -1,18 +1,21 @@
 package com.enigmacamp.goldmarket
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.enigmacamp.goldmarket.fragments.HistoryFragment
 import com.enigmacamp.goldmarket.fragments.HomeFragment
 import com.enigmacamp.goldmarket.fragments.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
+    private var name = ""
+    private var gold_amount = 0
 
-    private val name = "Jhon Thor"
-    private val gold_amount = "20"
+    lateinit var authCustomer: Customer
+
+    val TAG = "MainActivity"
 
     lateinit var homeFragment: Fragment
     lateinit var historyFragment: Fragment
@@ -21,6 +24,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        authCustomer = intent.getParcelableExtra(SignInActivity.INTENT_AUTH_CUSTOMER_KEY)
+        name = "${authCustomer.firstName} ${authCustomer.lastName}"
+        Log.d(TAG, name)
+
+        gold_amount = intent.getIntExtra(SignInActivity.INTENT_CUSTOMER_BALANCE, 0)
+        Log.d(TAG, gold_amount.toString())
 
         homeFragment = HomeFragment()
         historyFragment = HistoryFragment()
@@ -52,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     fun getProfile(): Array<String> {
-        val profile: Array<String> = arrayOf(name, gold_amount)
+        val profile: Array<String> = arrayOf(name, gold_amount.toString())
         return profile
     }
 }
