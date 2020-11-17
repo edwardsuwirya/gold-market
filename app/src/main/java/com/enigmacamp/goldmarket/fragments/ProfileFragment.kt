@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.enigmacamp.goldmarket.R
-import kotlinx.android.synthetic.main.fragment_home.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,7 +24,7 @@ class ProfileFragment : Fragment() {
     private var param2: String? = null
 
     lateinit var name: TextView
-    lateinit var age: TextView
+    lateinit var user_balance: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,8 +47,8 @@ class ProfileFragment : Fragment() {
         name = view.findViewById(R.id.name)
         name.text = profile!![0]
 
-        age = view.findViewById(R.id.age)
-        age.text = profile!![1] + " gr emas"
+        user_balance = view.findViewById(R.id.user_balance)
+        user_balance.text = profile!![1] + " gr emas"
 
         return view
     }

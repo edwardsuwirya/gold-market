@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Rp2.900.000.000"
+                android:text=""
                 android:textColor="@color/accent"
                 android:textSize="22dp"
                 android:textStyle="bold" />
@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="90 gram"
+                android:text="15.5 gram"
                 android:textColor="@color/accent"
                 android:textSize="20dp" />
 

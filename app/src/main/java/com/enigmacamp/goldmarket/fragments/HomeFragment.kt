@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.enigmacamp.goldmarket.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -22,6 +23,9 @@ class HomeFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    lateinit var gold_amount: TextView
+    lateinit var gold_amount_rp: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -35,7 +39,17 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_home, container, false)
+
+        val bundle = arguments
+        val user_gold_amount = bundle!!.getInt("gold_amount")
+        gold_amount = view.findViewById(R.id.label_user_gold_amount_gram)
+        gold_amount.text = user_gold_amount.toString() + " gram"
+
+        gold_amount_rp = view.findViewById(R.id.user_gold_amount_rp)
+        gold_amount_rp.text = "Rp"+(user_gold_amount * 900000).toString()
+
+        return view
     }
 
     companion object {

@@ -35,11 +35,20 @@ class MainActivity : AppCompatActivity() {
         historyFragment = HistoryFragment()
         profileFragment = ProfileFragment()
 
+        var b = Bundle()
+        b.putInt("gold_amount", gold_amount)
+        homeFragment.arguments = b
+
         makeCurrentFragment(homeFragment, "Gold Market")
 
         bottom_navigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.ic_home -> makeCurrentFragment(homeFragment, it.title.toString())
+                R.id.ic_home -> {
+                    var b = Bundle()
+                    b.putInt("gold_amount", gold_amount)
+                    homeFragment.arguments = b
+                    makeCurrentFragment(homeFragment, it.title.toString())
+                }
                 R.id.ic_history -> makeCurrentFragment(historyFragment, it.title.toString())
                 R.id.ic_profile -> {
                     var b = Bundle()
