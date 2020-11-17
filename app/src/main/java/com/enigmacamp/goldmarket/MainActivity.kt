@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     fun getProfile(): Array<String> {
-        val profile: Array<String> = arrayOf(name, gold_amount)
+        val profile: Array<String> = arrayOf(name, gold_amount.toString())
         return profile
     }
 }
