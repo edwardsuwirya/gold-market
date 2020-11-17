@@ -20,6 +20,11 @@
     <string name="no_have_account_label">Belum memiliki akun?</string>
     <string name="register_label"><u><b>Daftar</b></u></string>
 
+    <string name="nav_home_label">Home</string>
+    <string name="nav_history_label">History</string>
+    <string name="nav_profile_label">Profile</string>
+
+
     <string name="loading_label">Harap tunggu...</string>
     <string name="tc_label">Syarat &amp; Ketentuan</string>
 </resources>

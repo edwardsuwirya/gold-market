@@ -5,7 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.enigmacamp.goldmarket.fragments.HistoryFragment
+import com.enigmacamp.goldmarket.fragments.HomeFragment
+import com.enigmacamp.goldmarket.fragments.ProfileFragment
+import kotlinx.android.synthetic.main.activity_main.*
+import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
     private var name = ""
@@ -14,6 +18,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var authCustomer: Customer
 
     val TAG = "MainActivity"
+
+    lateinit var homeFragment: Fragment
+    lateinit var historyFragment: Fragment
+    lateinit var profileFragment: ProfileFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,5 +32,38 @@ class MainActivity : AppCompatActivity() {
 
         gold_amount = intent.getParcelableExtra(SignInActivity.INTENT_CUSTOMER_BALANCE)
         Log.d(TAG, gold_amount.toString())
+
+        homeFragment = HomeFragment()
+        historyFragment = HistoryFragment()
+        profileFragment = ProfileFragment()
+
+        makeCurrentFragment(homeFragment, "Home")
+
+        bottom_navigation.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.ic_home -> makeCurrentFragment(homeFragment, it.title.toString())
+                R.id.ic_history -> makeCurrentFragment(historyFragment, it.title.toString())
+                R.id.ic_profile -> {
+                    var b = Bundle()
+                    b.putStringArray("profile", getProfile())
+                    profileFragment.arguments = b
+                    makeCurrentFragment(profileFragment, it.title.toString())
+                }
+            }
+            true
+        }
+
+    }
+
+    private fun makeCurrentFragment(fragment: Fragment, fragmentTitle: String) =
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fl_container, fragment)
+            title = fragmentTitle
+            commit()
+        }
+
+    fun getProfile(): Array<String> {
+        val profile: Array<String> = arrayOf(name, gold_amount)
+        return profile
     }
 }
