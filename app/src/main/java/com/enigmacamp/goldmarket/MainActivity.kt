@@ -2,6 +2,7 @@ package com.enigmacamp.goldmarket
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.enigmacamp.goldmarket.fragments.HistoryFragment
@@ -73,4 +74,6 @@ class MainActivity : AppCompatActivity() {
         val profile: Array<String> = arrayOf(name, gold_amount.toString())
         return profile
     }
+
+    fun onBeliEmasClicked(view: View) {}
 }

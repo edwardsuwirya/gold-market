@@ -1,12 +1,16 @@
 package com.enigmacamp.goldmarket.fragments
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.enigmacamp.goldmarket.R
+import com.enigmacamp.goldmarket.TransactionActivity
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,6 +52,13 @@ class HomeFragment : Fragment() {
 
         gold_amount_rp = view.findViewById(R.id.user_gold_amount_rp)
         gold_amount_rp.text = "Rp"+(user_gold_amount * 900000).toString()
+
+        val button: Button = view.findViewById<View>(R.id.btn_beli) as Button
+        button.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                startActivity(Intent(activity, TransactionActivity::class.java))
+            }
+        })
 
         return view
     }
