@@ -27,4 +27,10 @@
 
     <string name="loading_label">Harap tunggu...</string>
     <string name="tc_label">Syarat &amp; Ketentuan</string>
+
+    <string name="personal_label">Data Pribadi</string>
+    <string name="fullName_label">Nama Lengkap</string>
+    <string name="address_label">Alamat</string>
+    <string name="status_label">Status</string>
+    <string name="upload_id_label">Upload KTP</string>
 </resources>
