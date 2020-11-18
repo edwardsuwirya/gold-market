@@ -15,12 +15,18 @@ class MainActivity : AppCompatActivity() {
     private var gold_amount = 0
 
     lateinit var authCustomer: Customer
+    lateinit var customerBalance: CustomerBalance
 
     val TAG = "MainActivity"
 
     lateinit var homeFragment: Fragment
     lateinit var historyFragment: Fragment
     lateinit var profileFragment: ProfileFragment
+
+    companion object {
+        const val PROFILE_KEY = "profile_key"
+        const val BALANCE_KEY = "balance_key"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +35,8 @@ class MainActivity : AppCompatActivity() {
         name = "${authCustomer.firstName} ${authCustomer.lastName}"
         Log.d(TAG, name)
 
-        gold_amount = intent.getIntExtra(SignInActivity.INTENT_CUSTOMER_BALANCE, 0)
-        Log.d(TAG, gold_amount.toString())
+        customerBalance = intent.getParcelableExtra(SignInActivity.INTENT_CUSTOMER_BALANCE)
+        Log.d(TAG, customerBalance.goldInGram.toString())
 
         homeFragment = HomeFragment()
         historyFragment = HistoryFragment()
@@ -53,7 +59,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.ic_history -> makeCurrentFragment(historyFragment, it.title.toString())
                 R.id.ic_profile -> {
                     var b = Bundle()
-                    b.putStringArray("profile", getProfile())
+                    b.putParcelable(PROFILE_KEY, authCustomer)
+                    b.putParcelable(BALANCE_KEY, customerBalance)
                     profileFragment.arguments = b
                     makeCurrentFragment(profileFragment, it.title.toString())
                 }

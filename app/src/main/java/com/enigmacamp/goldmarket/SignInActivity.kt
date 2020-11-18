@@ -40,7 +40,8 @@ class SignInActivity : AppCompatActivity() {
                 val password = userPasswordTextInput.editText?.text
                 if (email.toString() == "enigma" && password.toString() == "123") {
                     val authCustomer = Customer("123", "Enigma", "Camp", "it@enigmacamp.com")
-                    onStartWelcomeActivity(authCustomer)
+                    val customerBalance = CustomerBalance("123", 100)
+                    onStartWelcomeActivity(authCustomer, customerBalance)
                 }
                 loadingDialog.dismiss()
             }
@@ -55,11 +56,11 @@ class SignInActivity : AppCompatActivity() {
         finish()
     }
 
-    fun onStartWelcomeActivity(customer: Customer) {
+    fun onStartWelcomeActivity(customer: Customer, customerBalance: CustomerBalance) {
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         intent.putExtra(INTENT_AUTH_CUSTOMER_KEY, customer)
-        intent.putExtra(INTENT_CUSTOMER_BALANCE, 13_000_000)
+        intent.putExtra(INTENT_CUSTOMER_BALANCE, customerBalance)
         startActivity(intent)
         finish()
     }
