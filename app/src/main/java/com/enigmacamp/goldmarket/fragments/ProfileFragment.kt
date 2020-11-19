@@ -134,8 +134,7 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         var view: View = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        val bundle = arguments
-        val customer = bundle?.getParcelable<Customer>(MainActivity.PROFILE_KEY)
+        val customer = arguments?.getParcelable<Customer>(MainActivity.PROFILE_KEY)
 
         customerName = view.findViewById(R.id.customerName_textView)
         customerName.text = customer?.firstName ?: ""

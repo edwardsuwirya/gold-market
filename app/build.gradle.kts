@@ -32,8 +32,15 @@ android {
 val kotlin_version = "1.4.10"
 val material_version = "1.2.1"
 val kotlin_coroutine_version = "1.4.1"
+val nav_version = "2.3.1"
 
 dependencies {
+    implementation("androidx.navigation:navigation-fragment:$nav_version")
+    implementation("androidx.navigation:navigation-ui:$nav_version")
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
+
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutine_version")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutine_version")
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))

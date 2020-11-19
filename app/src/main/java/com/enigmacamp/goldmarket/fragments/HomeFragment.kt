@@ -1,21 +1,20 @@
 package com.enigmacamp.goldmarket.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.enigmacamp.goldmarket.CustomerBalance
+import com.enigmacamp.goldmarket.MainActivity
 import com.enigmacamp.goldmarket.R
-import com.enigmacamp.goldmarket.TransactionActivity
 
 
 // TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
@@ -24,19 +23,8 @@ private const val ARG_PARAM2 = "param2"
  */
 class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
     lateinit var gold_amount: TextView
     lateinit var gold_amount_rp: TextView
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,41 +33,39 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val bundle = arguments
-        val user_gold_amount = bundle!!.getInt("gold_amount")
+        val user_gold_amount = arguments?.getParcelable<CustomerBalance>(MainActivity.BALANCE_KEY)
         gold_amount = view.findViewById(R.id.label_user_gold_amount_gram)
-        gold_amount.text = user_gold_amount.toString() + " gram"
+        gold_amount.text = user_gold_amount?.goldInGram.toString() + " gram"
 
         gold_amount_rp = view.findViewById(R.id.user_gold_amount_rp)
-        gold_amount_rp.text = "Rp"+(user_gold_amount * 900000).toString()
+        gold_amount_rp.text = "Rp" + (user_gold_amount?.goldInGram ?: 0 * 900000).toString()
 
-        val button: Button = view.findViewById<View>(R.id.btn_beli) as Button
-        button.setOnClickListener(object : View.OnClickListener {
+        val buyButton: Button = view.findViewById<View>(R.id.btn_beli) as Button
+        buyButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                startActivity(Intent(activity, TransactionActivity::class.java))
+                findNavController().navigate(
+                    R.id.action_homeFragment_to_transactionActivity,
+                    bundleOf(TRX_TYPE_KEY to TRX_BUY)
+                )
             }
         })
-
+        val sellButton: Button = view.findViewById<View>(R.id.btn_jual) as Button
+        sellButton.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_homeFragment_to_transactionActivity,
+                bundleOf(TRX_TYPE_KEY to TRX_SELL)
+            )
+        }
         return view
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
         // TODO: Rename and change types and number of parameters
+        const val TRX_TYPE_KEY = "TRANSACTION_TYPE_KEY"
+        const val TRX_BUY = "BELI"
+        const val TRX_SELL = "JUAL"
+
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance() = HomeFragment()
     }
 }

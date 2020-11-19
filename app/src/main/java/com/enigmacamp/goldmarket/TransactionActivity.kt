@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.TextView
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import com.enigmacamp.goldmarket.fragments.HomeFragment
 import kotlinx.android.synthetic.main.activity_transaction.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -21,11 +24,11 @@ class TransactionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transaction)
-        title = "Beli Emas"
+        title = intent?.getStringExtra(HomeFragment.TRX_TYPE_KEY)
 
-        gold_amount_input= "0"
+        gold_amount_input = "0"
         gold_amount_gr = findViewById(R.id.gold_amount_gr)
-        gold_amount_gr.text = (gold_amount_input.toInt()/9000000).toString()
+        gold_amount_gr.text = (gold_amount_input.toInt() / 9000000).toString()
 
         price = findViewById(R.id.price)
         totalPrice = findViewById(R.id.totalPrice)
@@ -53,15 +56,14 @@ class TransactionActivity : AppCompatActivity() {
                 totalTransaction.text = "Rp" + rupiah
                 gold_amount_input = s.toString()
                 gold_amount_gr.text = if (gold_amount_input.length > 0) {
-                    (Math.floor(gold_amount_input.toDouble()/900000)).toString()
+                    (Math.floor(gold_amount_input.toDouble() / 900000)).toString()
                 } else "0"
 
                 gold_amount.text = if (gold_amount_input.length > 0) {
-                    (Math.floor(gold_amount_input.toDouble()/900000)).toString() + " gr emas"
+                    (Math.floor(gold_amount_input.toDouble() / 900000)).toString() + " gr emas"
                 } else "0 gr emas"
             }
         })
-
 
 
     }
