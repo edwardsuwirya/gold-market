@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -15,12 +16,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.enigmacamp.goldmarket.Customer
 import com.enigmacamp.goldmarket.MainActivity
 import com.enigmacamp.goldmarket.R
+import com.google.android.material.snackbar.Snackbar
+import java.io.File
+import java.io.FileOutputStream
 
 
 /**
@@ -31,8 +36,6 @@ import com.enigmacamp.goldmarket.R
 class ProfileFragment : Fragment() {
     // TODO: Rename and change types of parameters
 
-    lateinit var name: TextView
-    lateinit var user_balance: TextView
     lateinit var customerName: TextView
     lateinit var customerEmail: TextView
     lateinit var statusTextView: TextView
@@ -51,6 +54,7 @@ class ProfileFragment : Fragment() {
         Manifest.permission.READ_EXTERNAL_STORAGE
     ) == PackageManager.PERMISSION_GRANTED
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (!haveStoragePermission()) {
             val permissions = arrayOf(
@@ -139,9 +143,7 @@ class ProfileFragment : Fragment() {
 
         customerEmail = view.findViewById(R.id.customerEmail_textView)
         customerEmail.text = customer?.email ?: ""
-
-        user_balance = view.findViewById(R.id.user_balance)
-        user_balance.text = profile!![1] + " gr emas"
+        
         uploadIdButton = view.findViewById(R.id.upload_id_button)
         uploadIdButton.setOnClickListener {
             val intent = Intent(
