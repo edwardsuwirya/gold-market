@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -16,7 +15,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -54,7 +52,6 @@ class ProfileFragment : Fragment() {
         Manifest.permission.READ_EXTERNAL_STORAGE
     ) == PackageManager.PERMISSION_GRANTED
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (!haveStoragePermission()) {
             val permissions = arrayOf(
@@ -64,30 +61,31 @@ class ProfileFragment : Fragment() {
             ActivityCompat.requestPermissions(
                 this.requireActivity(), permissions, EXTERNAL_STORAGE_PERMISSION
             )
-        }
-        if (resultCode == RESULT_OK && requestCode == ID_PHOTO && data != null) {
-            context?.run {
-                val selectedImage = data.data
-                Log.d(TAG, selectedImage.toString())
-                val image = getImageDir()
-                val fos = FileOutputStream(image)
+        } else {
+            if (resultCode == RESULT_OK && requestCode == ID_PHOTO && data != null) {
+                context?.run {
+                    val selectedImage = data.data
+                    Log.d(TAG, selectedImage.toString())
+                    val image = getImageDir()
+                    val fos = FileOutputStream(image)
 
-                val bitmap =
-                    MediaStore.Images.Media.getBitmap(contentResolver, selectedImage)
+                    val bitmap =
+                        MediaStore.Images.Media.getBitmap(contentResolver, selectedImage)
 
-                fos?.use {
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
-                    val snackbar = Snackbar.make(view!!, "Succesfully add id", Snackbar.LENGTH_LONG)
-                    val snackbarView = snackbar.view
-                    snackbarView.background = getDrawable(R.drawable.background_with_radius)
-                    val textView =
-                        snackbarView.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
-                    textView.setTextColor(getColor(R.color.colorPrimaryDark))
-                    textView.textSize = 18f
-                    snackbar.show()
+                    fos?.use {
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
+                        val snackbar =
+                            Snackbar.make(view!!, "Succesfully add id", Snackbar.LENGTH_LONG)
+                        val snackbarView = snackbar.view
+                        snackbarView.background = getDrawable(R.drawable.background_with_radius)
+                        val textView =
+                            snackbarView.findViewById(R.id.snackbar_text) as TextView
+                        textView.setTextColor(getColor(R.color.colorPrimaryDark))
+                        textView.textSize = 18f
+                        snackbar.show()
+                    }
+                    loadImage()
                 }
-                loadImage()
-            }
 //            val stream = resolver?.openOutputStream(destUri!!)
 //            bitmap.compress(Bitmap.CompressFormat.PNG, 85, stream);
 
@@ -106,9 +104,10 @@ class ProfileFragment : Fragment() {
 //            bitmap.compress(Bitmap.CompressFormat.PNG, 85, fos);
 //            fos.flush()
 //            fos.close()
+            }
         }
-    }
 
+    }
 
     private fun getImageDir(): File? {
         var imageFile: File? = null
@@ -143,7 +142,7 @@ class ProfileFragment : Fragment() {
 
         customerEmail = view.findViewById(R.id.customerEmail_textView)
         customerEmail.text = customer?.email ?: ""
-        
+
         uploadIdButton = view.findViewById(R.id.upload_id_button)
         uploadIdButton.setOnClickListener {
             val intent = Intent(
