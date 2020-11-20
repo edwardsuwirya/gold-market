@@ -13,4 +13,8 @@
     <style name="SplashScreenStyle" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:windowBackground">@drawable/logo</item>
     </style>
+    <style name="ButtonCirleStyle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

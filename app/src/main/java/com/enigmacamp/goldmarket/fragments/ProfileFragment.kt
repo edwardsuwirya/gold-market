@@ -132,8 +132,12 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view: View = inflater.inflate(R.layout.fragment_profile, container, false)
+        return inflater.inflate(R.layout.fragment_profile, container, false)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val title = arguments?.getString(MainActivity.TITLE_KEY)
+        requireActivity().title = title
         val customer = arguments?.getParcelable<Customer>(MainActivity.PROFILE_KEY)
 
         customerName = view.findViewById(R.id.customerName_textView)
@@ -166,11 +170,6 @@ class ProfileFragment : Fragment() {
         statusTextView.text = "Belum terverifikasi"
 
         idImage = view?.findViewById<ImageView>(R.id.id_imageView)
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         loadImage()
     }
 

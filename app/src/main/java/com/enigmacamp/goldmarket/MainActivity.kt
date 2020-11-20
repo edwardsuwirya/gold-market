@@ -2,22 +2,21 @@ package com.enigmacamp.goldmarket
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
+import com.enigmacamp.goldmarket.fragments.AppBaseFragment
 import com.enigmacamp.goldmarket.fragments.HistoryFragment
 import com.enigmacamp.goldmarket.fragments.HomeFragment
 import com.enigmacamp.goldmarket.fragments.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_profile.*
+
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var navController: NavController
+    lateinit var navController: NavController
 
     private var name = ""
     private var gold_amount = 0
@@ -34,6 +33,10 @@ class MainActivity : AppCompatActivity() {
     companion object {
         const val PROFILE_KEY = "profile_key"
         const val BALANCE_KEY = "balance_key"
+        const val TITLE_KEY = "title_key"
+        const val HOME_TITLE = "Gold Market"
+        const val HISTORY_TITLE = "History"
+        const val PROFILE_TITLE = "Profile"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +51,12 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG, customerBalance.goldInGram.toString())
 
         navController = Navigation.findNavController(this, R.id.nav_fragment)
-        navController.setGraph(navController.graph, bundleOf(BALANCE_KEY to customerBalance))
+        navController.setGraph(
+            navController.graph, bundleOf(
+                BALANCE_KEY to customerBalance,
+                TITLE_KEY to HOME_TITLE
+            )
+        )
 
         homeFragment = HomeFragment()
         historyFragment = HistoryFragment()
@@ -57,13 +65,16 @@ class MainActivity : AppCompatActivity() {
         bottom_navigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.ic_home -> navController.navigate(
-                    R.id.homeFragment,
-                    bundleOf(BALANCE_KEY to customerBalance)
+                    R.id.action_home_fragment,
+                    bundleOf(BALANCE_KEY to customerBalance, TITLE_KEY to HOME_TITLE)
                 )
-                R.id.ic_history -> navController.navigate(R.id.historyFragment)
+                R.id.ic_history -> navController.navigate(
+                    R.id.action_history_fragment,
+                    bundleOf(TITLE_KEY to HISTORY_TITLE)
+                )
                 R.id.ic_profile -> navController.navigate(
-                    R.id.profileFragment,
-                    bundleOf(PROFILE_KEY to authCustomer)
+                    R.id.action_profile_fragment,
+                    bundleOf(PROFILE_KEY to authCustomer, TITLE_KEY to PROFILE_TITLE)
                 )
             }
             true

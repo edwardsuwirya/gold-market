@@ -3,22 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_nav_graph"
-    app:startDestination="@id/homeFragment">
-
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.enigmacamp.goldmarket.fragments.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
-        <argument
-            android:name="balance"
-            app:argType="com.enigmacamp.goldmarket.CustomerBalance" />
-        <action
-            android:id="@+id/action_homeFragment_to_transactionActivity"
-            app:destination="@id/transactionActivity"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
-    </fragment>
+    app:startDestination="@id/transaction_navigation">
+    <action
+        android:id="@+id/action_authentication_fragment"
+        app:destination="@id/authenticationFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim" />
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.enigmacamp.goldmarket.fragments.HistoryFragment"
@@ -33,9 +23,57 @@
             android:name="customer"
             app:argType="com.enigmacamp.goldmarket.Customer" />
     </fragment>
-    <activity
-        android:id="@+id/transactionActivity"
-        android:name="com.enigmacamp.goldmarket.TransactionActivity"
-        android:label="activity_transaction"
-        tools:layout="@layout/activity_transaction" />
+    <fragment
+        android:id="@+id/authenticationFragment"
+        android:name="com.enigmacamp.goldmarket.fragments.AuthenticationFragment"
+        android:label="fragment_authentication"
+        tools:layout="@layout/fragment_authentication" >
+        <argument
+            android:name="title_key"
+            app:argType="string"
+            android:defaultValue="Authentication" />
+    </fragment>
+    <action
+        android:id="@+id/action_profile_fragment"
+        app:destination="@id/profileFragment"
+        app:popUpTo="@id/homeFragment" />
+    <action
+        android:id="@+id/action_history_fragment"
+        app:destination="@id/historyFragment"
+        app:popUpTo="@id/homeFragment" />
+    <action
+        android:id="@+id/action_home_fragment"
+        app:destination="@id/transaction_navigation"
+        app:popUpTo="@id/bottom_nav_graph" />
+    <navigation android:id="@+id/transaction_navigation"
+        app:startDestination="@id/homeFragment">
+        <fragment
+            android:id="@+id/transactionFragment"
+            android:name="com.enigmacamp.goldmarket.fragments.TransactionFragment"
+            android:label="fragment_transaction"
+            tools:layout="@layout/fragment_transaction">
+            <argument
+                android:name="TRANSACTION_KEY"
+                app:argType="integer" />
+            <argument
+                android:name="title_key"
+                app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/homeFragment"
+            android:name="com.enigmacamp.goldmarket.fragments.HomeFragment"
+            android:label="fragment_home"
+            tools:layout="@layout/fragment_home">
+            <argument
+                android:name="balance"
+                app:argType="com.enigmacamp.goldmarket.CustomerBalance" />
+            <action
+                android:id="@+id/action_homeFragment_to_transactionFragment"
+                app:destination="@id/transactionFragment"
+                app:popUpTo="@id/homeFragment" />
+            <argument
+                android:name="title_key"
+                app:argType="string" />
+        </fragment>
+    </navigation>
 </navigation>
