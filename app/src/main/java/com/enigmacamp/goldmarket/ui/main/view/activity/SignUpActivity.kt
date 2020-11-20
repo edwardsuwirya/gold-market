@@ -8,9 +8,7 @@ import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.enigmacamp.goldmarket.R
-import com.enigmacamp.goldmarket.data.model.Customer
 import com.enigmacamp.goldmarket.ui.LoadingDialog
 import com.enigmacamp.goldmarket.ui.main.viewmodel.SignUpViewModel
 import com.enigmacamp.goldmarket.util.AppTextWatcher
