@@ -34,7 +34,12 @@ val material_version = "1.2.1"
 val kotlin_coroutine_version = "1.4.1"
 val nav_version = "2.3.1"
 
+val lifecycle_version = "2.2.0"
+
 dependencies {
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-extensions:$lifecycle_version")
+
     implementation("androidx.navigation:navigation-fragment:$nav_version")
     implementation("androidx.navigation:navigation-ui:$nav_version")
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
@@ -51,6 +56,7 @@ dependencies {
     implementation("com.google.android.material:material:$material_version")
     implementation("com.android.support:design:29.0.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
+
 
     testImplementation("junit:junit:4.12")
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
