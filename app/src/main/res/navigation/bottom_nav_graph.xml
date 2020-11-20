@@ -11,21 +11,21 @@
         app:exitAnim="@anim/nav_default_exit_anim" />
     <fragment
         android:id="@+id/historyFragment"
-        android:name="com.enigmacamp.goldmarket.fragments.HistoryFragment"
+        android:name="com.enigmacamp.goldmarket.ui.main.view.fragments.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.enigmacamp.goldmarket.fragments.ProfileFragment"
+        android:name="com.enigmacamp.goldmarket.ui.main.view.fragments.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <argument
             android:name="customer"
-            app:argType="com.enigmacamp.goldmarket.Customer" />
+            app:argType="com.enigmacamp.goldmarket.data.model.Customer" />
     </fragment>
     <fragment
         android:id="@+id/authenticationFragment"
-        android:name="com.enigmacamp.goldmarket.fragments.AuthenticationFragment"
+        android:name="com.enigmacamp.goldmarket.ui.main.view.fragments.AuthenticationFragment"
         android:label="fragment_authentication"
         tools:layout="@layout/fragment_authentication" >
         <argument
@@ -49,7 +49,7 @@
         app:startDestination="@id/homeFragment">
         <fragment
             android:id="@+id/transactionFragment"
-            android:name="com.enigmacamp.goldmarket.fragments.TransactionFragment"
+            android:name="com.enigmacamp.goldmarket.ui.main.view.fragments.TransactionFragment"
             android:label="fragment_transaction"
             tools:layout="@layout/fragment_transaction">
             <argument
@@ -61,12 +61,12 @@
         </fragment>
         <fragment
             android:id="@+id/homeFragment"
-            android:name="com.enigmacamp.goldmarket.fragments.HomeFragment"
+            android:name="com.enigmacamp.goldmarket.ui.main.view.fragments.HomeFragment"
             android:label="fragment_home"
             tools:layout="@layout/fragment_home">
             <argument
                 android:name="balance"
-                app:argType="com.enigmacamp.goldmarket.CustomerBalance" />
+                app:argType="com.enigmacamp.goldmarket.data.model.CustomerBalance" />
             <action
                 android:id="@+id/action_homeFragment_to_transactionFragment"
                 app:destination="@id/transactionFragment"

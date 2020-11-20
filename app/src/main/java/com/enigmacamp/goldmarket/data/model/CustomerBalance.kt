@@ -1,4 +1,4 @@
-package com.enigmacamp.goldmarket
+package com.enigmacamp.goldmarket.data.model
 
 import android.os.Parcel
 import android.os.Parcelable

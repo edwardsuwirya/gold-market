@@ -1,4 +1,4 @@
-package com.enigmacamp.goldmarket
+package com.enigmacamp.goldmarket.ui.main.view.activity
 
 import android.content.Intent
 import android.net.Uri
@@ -7,6 +7,10 @@ import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.enigmacamp.goldmarket.data.model.Customer
+import com.enigmacamp.goldmarket.ui.LoadingDialog
+import com.enigmacamp.goldmarket.R
+import com.enigmacamp.goldmarket.util.AppTextWatcher
 import com.google.android.material.textfield.TextInputLayout
 
 

@@ -1,4 +1,4 @@
-package com.enigmacamp.goldmarket
+package com.enigmacamp.goldmarket.util
 
 import android.text.Editable
 import android.text.TextWatcher

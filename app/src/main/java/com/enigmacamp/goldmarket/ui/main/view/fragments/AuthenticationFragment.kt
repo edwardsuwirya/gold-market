@@ -1,4 +1,4 @@
-package com.enigmacamp.goldmarket.fragments
+package com.enigmacamp.goldmarket.ui.main.view.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,15 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
-import com.enigmacamp.goldmarket.LoadingDialog
-import com.enigmacamp.goldmarket.MainActivity
+import com.enigmacamp.goldmarket.ui.LoadingDialog
+import com.enigmacamp.goldmarket.ui.main.view.activity.MainActivity
 import com.enigmacamp.goldmarket.R
-import kotlinx.android.synthetic.main.activity_main.*
+import com.enigmacamp.goldmarket.ui.base.AppBaseFragment
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

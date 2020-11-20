@@ -1,4 +1,4 @@
-package com.enigmacamp.goldmarket.fragments
+package com.enigmacamp.goldmarket.ui.base
 
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity

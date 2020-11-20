@@ -1,8 +1,11 @@
-package com.enigmacamp.goldmarket
+package com.enigmacamp.goldmarket.ui.main.view.activity
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.enigmacamp.goldmarket.data.model.Customer
+import com.enigmacamp.goldmarket.data.model.CustomerBalance
+import com.enigmacamp.goldmarket.R
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

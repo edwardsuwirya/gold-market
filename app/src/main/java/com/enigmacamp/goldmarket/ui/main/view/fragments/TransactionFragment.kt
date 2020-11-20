@@ -1,22 +1,18 @@
-package com.enigmacamp.goldmarket.fragments
+package com.enigmacamp.goldmarket.ui.main.view.fragments
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
-import com.enigmacamp.goldmarket.AppTextWatcher
-import com.enigmacamp.goldmarket.MainActivity
+import com.enigmacamp.goldmarket.util.AppTextWatcher
+import com.enigmacamp.goldmarket.ui.main.view.activity.MainActivity
 import com.enigmacamp.goldmarket.R
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlin.math.round
+import com.enigmacamp.goldmarket.ui.base.AppBaseFragment
 
 // TODO: Rename parameter arguments, choose names that match
 

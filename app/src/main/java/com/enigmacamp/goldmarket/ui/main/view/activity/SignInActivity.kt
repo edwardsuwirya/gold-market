@@ -1,10 +1,14 @@
-package com.enigmacamp.goldmarket
+package com.enigmacamp.goldmarket.ui.main.view.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.enigmacamp.goldmarket.data.model.Customer
+import com.enigmacamp.goldmarket.data.model.CustomerBalance
+import com.enigmacamp.goldmarket.ui.LoadingDialog
+import com.enigmacamp.goldmarket.R
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay

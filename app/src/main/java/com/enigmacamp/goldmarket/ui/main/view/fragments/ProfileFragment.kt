@@ -1,4 +1,4 @@
-package com.enigmacamp.goldmarket.fragments
+package com.enigmacamp.goldmarket.ui.main.view.fragments
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
@@ -18,8 +18,8 @@ import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.enigmacamp.goldmarket.Customer
-import com.enigmacamp.goldmarket.MainActivity
+import com.enigmacamp.goldmarket.data.model.Customer
+import com.enigmacamp.goldmarket.ui.main.view.activity.MainActivity
 import com.enigmacamp.goldmarket.R
 import com.google.android.material.snackbar.Snackbar
 import java.io.File
@@ -75,7 +75,7 @@ class ProfileFragment : Fragment() {
                     fos?.use {
                         bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
                         val snackbar =
-                            Snackbar.make(view!!, "Succesfully add id", Snackbar.LENGTH_LONG)
+                            Snackbar.make(requireView(), "Succesfully add id", Snackbar.LENGTH_LONG)
                         val snackbarView = snackbar.view
                         snackbarView.background = getDrawable(R.drawable.background_with_radius)
                         val textView =

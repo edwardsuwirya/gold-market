@@ -1,11 +1,11 @@
-package com.enigmacamp.goldmarket.fragments
+package com.enigmacamp.goldmarket.ui.main.view.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.enigmacamp.goldmarket.MainActivity
+import com.enigmacamp.goldmarket.ui.main.view.activity.MainActivity
 import com.enigmacamp.goldmarket.R
 
 // TODO: Rename parameter arguments, choose names that match

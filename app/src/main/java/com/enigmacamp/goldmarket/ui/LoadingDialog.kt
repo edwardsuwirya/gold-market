@@ -1,10 +1,11 @@
-package com.enigmacamp.goldmarket
+package com.enigmacamp.goldmarket.ui
 
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
+import com.enigmacamp.goldmarket.R
 
 
 class LoadingDialog {

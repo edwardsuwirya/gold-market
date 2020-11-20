@@ -1,10 +1,11 @@
-package com.enigmacamp.goldmarket
+package com.enigmacamp.goldmarket.ui.main.view.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.enigmacamp.goldmarket.R
 
 class WelcomeActivity : AppCompatActivity() {
     lateinit var beginButton: Button
