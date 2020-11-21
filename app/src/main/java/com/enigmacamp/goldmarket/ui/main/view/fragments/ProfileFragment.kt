@@ -18,9 +18,12 @@ import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.enigmacamp.goldmarket.data.model.Customer
-import com.enigmacamp.goldmarket.ui.main.view.activity.MainActivity
+import androidx.lifecycle.ViewModelProvider
 import com.enigmacamp.goldmarket.R
+import com.enigmacamp.goldmarket.data.model.Customer
+import com.enigmacamp.goldmarket.ui.base.AppBaseFragment
+import com.enigmacamp.goldmarket.ui.main.view.activity.MainActivity
+import com.enigmacamp.goldmarket.ui.main.viewmodel.ProfileFragmentViewModel
 import com.google.android.material.snackbar.Snackbar
 import java.io.File
 import java.io.FileOutputStream
@@ -31,7 +34,7 @@ import java.io.FileOutputStream
  * Use the [ProfileFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ProfileFragment : Fragment() {
+class ProfileFragment : AppBaseFragment() {
     // TODO: Rename and change types of parameters
 
     lateinit var customerName: TextView
@@ -41,16 +44,39 @@ class ProfileFragment : Fragment() {
     lateinit var profileImage: ImageView
     lateinit var idImage: ImageView
 
+    lateinit var viewModel: ProfileFragmentViewModel
+
     val TAG = "ProfileFragment"
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private fun initUi() {
+        customerName = requireView().findViewById(R.id.customerName_textView)
+        customerEmail = requireView().findViewById(R.id.customerEmail_textView)
+        uploadIdButton = requireView().findViewById(R.id.upload_id_button)
+        profileImage = requireView().findViewById(R.id.profile_imageView)
+        statusTextView = requireView().findViewById(R.id.status_textView)
+        idImage = requireView().findViewById(R.id.id_imageView)
+    }
+
+    private fun initViewModel() {
+        viewModel = ViewModelProvider(this).get(ProfileFragmentViewModel::class.java)
     }
 
     private fun haveStoragePermission() = ContextCompat.checkSelfPermission(
         this.requireContext(),
         Manifest.permission.READ_EXTERNAL_STORAGE
     ) == PackageManager.PERMISSION_GRANTED
+
+    private fun createSnackBar(message: String) {
+        val snackbar =
+            Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG)
+        val snackbarView = snackbar.view
+        snackbarView.background = requireContext().getDrawable(R.drawable.background_with_radius)
+        val textView =
+            snackbarView.findViewById(R.id.snackbar_text) as TextView
+        textView.setTextColor(requireContext().getColor(R.color.colorPrimaryDark))
+        textView.textSize = 18f
+        snackbar.show()
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (!haveStoragePermission()) {
@@ -66,25 +92,14 @@ class ProfileFragment : Fragment() {
                 context?.run {
                     val selectedImage = data.data
                     Log.d(TAG, selectedImage.toString())
-                    val image = getImageDir()
-                    val fos = FileOutputStream(image)
 
-                    val bitmap =
-                        MediaStore.Images.Media.getBitmap(contentResolver, selectedImage)
-
-                    fos?.use {
-                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
-                        val snackbar =
-                            Snackbar.make(requireView(), "Succesfully add id", Snackbar.LENGTH_LONG)
-                        val snackbarView = snackbar.view
-                        snackbarView.background = getDrawable(R.drawable.background_with_radius)
-                        val textView =
-                            snackbarView.findViewById(R.id.snackbar_text) as TextView
-                        textView.setTextColor(getColor(R.color.colorPrimaryDark))
-                        textView.textSize = 18f
-                        snackbar.show()
+                    val result = viewModel.saveInternalStorage(selectedImage!!, this, ID_IMAGE_NAME)
+                    if (result) {
+                        createSnackBar("Succesfully add ID")
+                        loadImage(ID_IMAGE_NAME)
+                    } else {
+                        createSnackBar("Error creating ID")
                     }
-                    loadImage()
                 }
 //            val stream = resolver?.openOutputStream(destUri!!)
 //            bitmap.compress(Bitmap.CompressFormat.PNG, 85, stream);
@@ -109,18 +124,9 @@ class ProfileFragment : Fragment() {
 
     }
 
-    private fun getImageDir(): File? {
-        var imageFile: File? = null
-        context?.run {
-            val imagesDir = getExternalFilesDir(null)
-            imageFile = File(imagesDir, "id.png")
-            Log.d(TAG, imageFile?.absolutePath)
-        }
-        return imageFile
-    }
-
-    private fun loadImage() {
-        val imageFile = getImageDir()
+    private fun loadImage(imageName: String) {
+        val imageFile = viewModel.getImageDir(requireContext(), imageName)
+        idImage?.setImageURI(null)
         idImage?.setImageURI(Uri.fromFile(imageFile));
         //Alternative way using BitmapFactory
         //val myBitmap = BitmapFactory.decodeFile(imageFile?.getAbsolutePath())
@@ -136,17 +142,15 @@ class ProfileFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initUi()
+        initViewModel()
         val title = arguments?.getString(MainActivity.TITLE_KEY)
         requireActivity().title = title
         val customer = arguments?.getParcelable<Customer>(MainActivity.PROFILE_KEY)
 
-        customerName = view.findViewById(R.id.customerName_textView)
         customerName.text = customer?.firstName ?: ""
-
-        customerEmail = view.findViewById(R.id.customerEmail_textView)
         customerEmail.text = customer?.email ?: ""
 
-        uploadIdButton = view.findViewById(R.id.upload_id_button)
         uploadIdButton.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_GET_CONTENT,
@@ -156,7 +160,6 @@ class ProfileFragment : Fragment() {
             startActivityForResult(intent, ID_PHOTO)
         }
 
-        profileImage = view.findViewById(R.id.profile_imageView)
         profileImage.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_GET_CONTENT,
@@ -166,11 +169,9 @@ class ProfileFragment : Fragment() {
             startActivityForResult(intent, PROFILE_PHOTO)
         }
 
-        statusTextView = view.findViewById(R.id.status_textView)
         statusTextView.text = "Belum terverifikasi"
 
-        idImage = view?.findViewById<ImageView>(R.id.id_imageView)
-        loadImage()
+        loadImage(ID_IMAGE_NAME)
     }
 
     companion object {
@@ -178,6 +179,7 @@ class ProfileFragment : Fragment() {
         const val PROFILE_PHOTO = 1000
         const val ID_PHOTO = 1001
         const val EXTERNAL_STORAGE_PERMISSION = 2222
+        const val ID_IMAGE_NAME = "id.png"
 
         @JvmStatic
         fun newInstance() = ProfileFragment()
