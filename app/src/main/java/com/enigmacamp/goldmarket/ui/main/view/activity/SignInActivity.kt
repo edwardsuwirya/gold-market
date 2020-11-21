@@ -16,12 +16,9 @@ import com.enigmacamp.goldmarket.data.model.UserAuth
 import com.enigmacamp.goldmarket.ui.LoadingDialog
 import com.enigmacamp.goldmarket.ui.base.AppBaseActivity
 import com.enigmacamp.goldmarket.ui.main.viewmodel.SignInViewModel
+import com.enigmacamp.goldmarket.ui.main.viewmodel.SignInViewModelInjector
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
-import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class SignInActivity : AppBaseActivity() {
     lateinit var signInButton: Button
@@ -47,7 +44,10 @@ class SignInActivity : AppBaseActivity() {
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
+        viewModel = ViewModelProvider(
+            this,
+            SignInViewModelInjector.getFactory()
+        ).get(SignInViewModel::class.java)
     }
 
     private fun subscribe() {
@@ -65,6 +65,8 @@ class SignInActivity : AppBaseActivity() {
                 }
                 is AppState.Error -> {
                     loadingDialog.dismiss()
+                    userEmailTextInput.editText?.setText("")
+                    userPasswordTextInput.editText?.setText("")
                     showSnackBar()
                 }
             }
