@@ -1,13 +1,10 @@
 package com.enigmacamp.goldmarket.ui.main.view.activity
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import com.enigmacamp.goldmarket.R

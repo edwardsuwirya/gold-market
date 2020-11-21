@@ -9,10 +9,17 @@ import com.enigmacamp.goldmarket.R
 
 class WelcomeActivity : AppCompatActivity() {
     lateinit var beginButton: Button
+
+    private fun initUi() {
+        beginButton = findViewById(R.id.welcome_button)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
-        beginButton = findViewById(R.id.welcome_button)
+
+        initUi()
+
         beginButton.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
 //            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
