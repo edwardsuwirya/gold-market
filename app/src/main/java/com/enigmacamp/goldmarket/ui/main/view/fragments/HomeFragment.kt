@@ -9,10 +9,10 @@ import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.enigmacamp.goldmarket.data.model.CustomerBalance
-import com.enigmacamp.goldmarket.ui.main.view.activity.MainActivity
 import com.enigmacamp.goldmarket.R
+import com.enigmacamp.goldmarket.data.model.CustomerBalance
 import com.enigmacamp.goldmarket.ui.base.AppBaseFragment
+import com.enigmacamp.goldmarket.ui.main.view.activity.MainActivity
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -24,29 +24,34 @@ import com.enigmacamp.goldmarket.ui.base.AppBaseFragment
  */
 class HomeFragment : AppBaseFragment() {
     // TODO: Rename and change types of parameters
-    lateinit var gold_amount: TextView
-    lateinit var gold_amount_rp: TextView
+    lateinit var goldAmount: TextView
+    lateinit var goldAmountRp: TextView
+    lateinit var buyButton: Button
+    lateinit var sellButton: Button
+
+    private fun initUi() {
+        goldAmount = requireView().findViewById(R.id.label_user_gold_amount_gram)
+        goldAmountRp = requireView().findViewById(R.id.user_gold_amount_rp)
+        buyButton = requireView().findViewById(R.id.btn_beli)
+        sellButton = requireView().findViewById(R.id.btn_jual)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initUi()
         val title = arguments?.getString(MainActivity.TITLE_KEY)
         requireActivity().title = title
         val user_gold_amount = arguments?.getParcelable<CustomerBalance>(MainActivity.BALANCE_KEY)
-        gold_amount = requireView().findViewById(R.id.label_user_gold_amount_gram)
-        gold_amount.text = user_gold_amount?.goldInGram.toString() + " gram"
 
-        gold_amount_rp = view.findViewById(R.id.user_gold_amount_rp)
-        gold_amount_rp.text = "Rp" + (user_gold_amount?.goldInGram ?: 0 * 900000).toString()
+        goldAmount.text = user_gold_amount?.goldInGram.toString() + " gram"
+        goldAmountRp.text = "Rp" + (user_gold_amount?.goldInGram ?: 0 * 900000).toString()
 
-        val buyButton: Button = view.findViewById<View>(R.id.btn_beli) as Button
-        buyButton.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                findNavController().navigate(
-                    R.id.action_homeFragment_to_transactionFragment,
-                    bundleOf(TRX_TYPE_KEY to TRX_BUY, MainActivity.TITLE_KEY to TRX_BUY)
-                )
-            }
-        })
-        val sellButton: Button = view.findViewById<View>(R.id.btn_jual) as Button
+        buyButton.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_homeFragment_to_transactionFragment,
+                bundleOf(TRX_TYPE_KEY to TRX_BUY, MainActivity.TITLE_KEY to TRX_BUY)
+            )
+        }
+
         sellButton.setOnClickListener {
             findNavController().navigate(
                 R.id.action_homeFragment_to_transactionFragment,
