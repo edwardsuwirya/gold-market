@@ -10,18 +10,16 @@ import androidx.navigation.Navigation
 import com.enigmacamp.goldmarket.data.model.Customer
 import com.enigmacamp.goldmarket.data.model.CustomerBalance
 import com.enigmacamp.goldmarket.R
+import com.enigmacamp.goldmarket.ui.base.AppBaseActivity
 import com.enigmacamp.goldmarket.ui.main.view.fragments.HistoryFragment
 import com.enigmacamp.goldmarket.ui.main.view.fragments.HomeFragment
 import com.enigmacamp.goldmarket.ui.main.view.fragments.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppBaseActivity() {
     lateinit var navController: NavController
-
     private var name = ""
-    private var gold_amount = 0
-
     lateinit var authCustomer: Customer
     lateinit var customerBalance: CustomerBalance
 
@@ -40,9 +38,19 @@ class MainActivity : AppCompatActivity() {
         const val PROFILE_TITLE = "Profile"
     }
 
+    private fun initUi() {
+        homeFragment = HomeFragment()
+        historyFragment = HistoryFragment()
+        profileFragment = ProfileFragment()
+
+        navController = Navigation.findNavController(this, R.id.nav_fragment)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        initUi()
 
         authCustomer = intent.getParcelableExtra(SignInActivity.INTENT_AUTH_CUSTOMER_KEY)
         name = "${authCustomer.firstName} ${authCustomer.lastName}"
@@ -51,17 +59,13 @@ class MainActivity : AppCompatActivity() {
         customerBalance = intent.getParcelableExtra(SignInActivity.INTENT_CUSTOMER_BALANCE)
         Log.d(TAG, customerBalance.goldInGram.toString())
 
-        navController = Navigation.findNavController(this, R.id.nav_fragment)
+
         navController.setGraph(
             navController.graph, bundleOf(
                 BALANCE_KEY to customerBalance,
                 TITLE_KEY to HOME_TITLE
             )
         )
-
-        homeFragment = HomeFragment()
-        historyFragment = HistoryFragment()
-        profileFragment = ProfileFragment()
 
         bottom_navigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
