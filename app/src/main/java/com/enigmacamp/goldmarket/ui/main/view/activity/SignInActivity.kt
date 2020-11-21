@@ -6,15 +6,19 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.enigmacamp.goldmarket.R
+import com.enigmacamp.goldmarket.data.model.AppState
 import com.enigmacamp.goldmarket.data.model.Customer
 import com.enigmacamp.goldmarket.data.model.CustomerBalance
+import com.enigmacamp.goldmarket.data.model.UserAuth
 import com.enigmacamp.goldmarket.ui.LoadingDialog
 import com.enigmacamp.goldmarket.ui.base.AppBaseActivity
 import com.enigmacamp.goldmarket.ui.main.viewmodel.SignInViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -46,34 +50,41 @@ class SignInActivity : AppBaseActivity() {
         viewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
     }
 
+    private fun subscribe() {
+        viewModel.response.observe(this, Observer {
+            when (it) {
+                is AppState.Loading -> {
+                    loadingDialog.show()
+                }
+                is AppState.Success -> {
+                    loadingDialog.dismiss()
+                    it.data?.let {
+                        val (authCustomer, customerBalance) = it
+                        onStartWelcomeActivity(authCustomer, customerBalance)
+                    }
+                }
+                is AppState.Error -> {
+                    loadingDialog.dismiss()
+                    showSnackBar()
+                }
+            }
+        })
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
 
         initUi()
         initViewModel()
+        subscribe()
 
         signInButton.setOnClickListener {
             clearKeyboard(findViewById<ConstraintLayout>(R.id.sign_in_layout))
-            loadingDialog.show()
-
-            GlobalScope.launch {
-                delay(1000)
-                val email = userEmailTextInput.editText?.text
-                val password = userPasswordTextInput.editText?.text
-                viewModel.userAuth.userName = email.toString()
-                viewModel.userAuth.userPassword = password.toString()
-                val (authCustomer, customerBalance) = viewModel.userAuthValidate()
-                loadingDialog.dismiss()
-                if (authCustomer != null) {
-                    onStartWelcomeActivity(authCustomer, customerBalance)
-                } else {
-                    viewModel.userAuth.userName = ""
-                    viewModel.userAuth.userPassword = ""
-                    showSnackBar()
-                }
-
-            }
+            val email = userEmailTextInput.editText?.text
+            val password = userPasswordTextInput.editText?.text
+            viewModel.userAuth.setValue(UserAuth(email.toString(), password.toString()))
+            viewModel.userAuthValidate()
         }
 
         signUpButton.setOnClickListener {
