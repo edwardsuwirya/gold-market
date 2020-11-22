@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="15.5 gram"
+                android:text="0.0 gram"
                 android:textColor="@color/accent"
                 android:textSize="20dp" />
 
@@ -80,7 +80,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Rp900.000"
+                    android:text="Rp 0"
                     android:textColor="@color/accent"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -119,7 +119,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Rp870.000"
+                    android:text="Rp 0"
                     android:textColor="@color/accent"
                     android:textSize="18dp"
                     android:textStyle="bold" />

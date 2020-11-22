@@ -13,9 +13,7 @@ import com.enigmacamp.goldmarket.ui.LoadingDialog
 import com.enigmacamp.goldmarket.ui.main.view.activity.MainActivity
 import com.enigmacamp.goldmarket.R
 import com.enigmacamp.goldmarket.ui.base.AppBaseFragment
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 /**
  * A simple [Fragment] subclass.
@@ -29,10 +27,6 @@ class AuthenticationFragment : AppBaseFragment() {
     lateinit var cancelButton: Button
     lateinit var loadingDialog: AlertDialog
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val sourceView = arguments?.getInt("TRANSACTION_KEY")
         val title = arguments?.getString(MainActivity.TITLE_KEY)
@@ -41,15 +35,9 @@ class AuthenticationFragment : AppBaseFragment() {
         okButton = requireView().findViewById(R.id.auth_button)
         okButton.setOnClickListener {
             loadingDialog.show()
-            GlobalScope.launch {
-                delay(1000)
-                loadingDialog.dismiss()
-                findNavController().navigate(
-                    R.id.action_home_fragment,
-                    bundleOf("STATUS" to "OK", MainActivity.TITLE_KEY to title)
-                )
-            }
-
+            loadingDialog.dismiss()
+            findNavController().previousBackStackEntry?.savedStateHandle?.set("STATUS", "OK")
+            findNavController().popBackStack(sourceView!!, false)
         }
         cancelButton = requireView().findViewById(R.id.cancel_button)
         cancelButton.setOnClickListener {

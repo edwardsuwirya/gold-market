@@ -53,11 +53,17 @@
             android:label="fragment_transaction"
             tools:layout="@layout/fragment_transaction">
             <argument
-                android:name="TRANSACTION_KEY"
-                app:argType="integer" />
+                android:name="TRANSACTION_TYPE_KEY"
+                app:argType="string" />
+            <argument
+                android:name="CUSTOMER_KEY"
+                app:argType="com.enigmacamp.goldmarket.data.model.Customer" />
             <argument
                 android:name="title_key"
                 app:argType="string" />
+            <argument
+                android:name="GOLD_PRICE_KEY"
+                app:argType="float" />
         </fragment>
         <fragment
             android:id="@+id/homeFragment"
@@ -65,15 +71,16 @@
             android:label="fragment_home"
             tools:layout="@layout/fragment_home">
             <argument
-                android:name="balance"
-                app:argType="com.enigmacamp.goldmarket.data.model.CustomerBalance" />
+                android:name="customer_key"
+                app:argType="com.enigmacamp.goldmarket.data.model.Customer" />
             <action
                 android:id="@+id/action_homeFragment_to_transactionFragment"
                 app:destination="@id/transactionFragment"
                 app:popUpTo="@id/homeFragment" />
             <argument
                 android:name="title_key"
-                app:argType="string" />
+                app:argType="string"
+                android:defaultValue="Gold Market" />
         </fragment>
     </navigation>
 </navigation>

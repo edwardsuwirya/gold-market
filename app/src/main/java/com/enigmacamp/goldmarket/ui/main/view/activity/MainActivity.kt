@@ -21,7 +21,6 @@ class MainActivity : AppBaseActivity() {
     lateinit var navController: NavController
     private var name = ""
     lateinit var authCustomer: Customer
-    lateinit var customerBalance: CustomerBalance
 
     val TAG = "MainActivity"
 
@@ -31,11 +30,12 @@ class MainActivity : AppBaseActivity() {
 
     companion object {
         const val PROFILE_KEY = "profile_key"
-        const val BALANCE_KEY = "balance_key"
+        const val CUSTOMER_KEY = "customer_key"
         const val TITLE_KEY = "title_key"
         const val HOME_TITLE = "Gold Market"
         const val HISTORY_TITLE = "History"
         const val PROFILE_TITLE = "Profile"
+        const val NEED_REFRESH_KEY = "need_refresh_key"
     }
 
     private fun initUi() {
@@ -56,13 +56,9 @@ class MainActivity : AppBaseActivity() {
         name = "${authCustomer.firstName} ${authCustomer.lastName}"
         Log.d(TAG, name)
 
-        customerBalance = intent.getParcelableExtra(SignInActivity.INTENT_CUSTOMER_BALANCE)
-        Log.d(TAG, customerBalance.goldInGram.toString())
-
-
         navController.setGraph(
             navController.graph, bundleOf(
-                BALANCE_KEY to customerBalance,
+                CUSTOMER_KEY to authCustomer,
                 TITLE_KEY to HOME_TITLE
             )
         )
@@ -71,7 +67,7 @@ class MainActivity : AppBaseActivity() {
             when (it.itemId) {
                 R.id.ic_home -> navController.navigate(
                     R.id.action_home_fragment,
-                    bundleOf(BALANCE_KEY to customerBalance, TITLE_KEY to HOME_TITLE)
+                    bundleOf(CUSTOMER_KEY to authCustomer, TITLE_KEY to HOME_TITLE)
                 )
                 R.id.ic_history -> navController.navigate(
                     R.id.action_history_fragment,

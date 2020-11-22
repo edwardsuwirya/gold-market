@@ -10,13 +10,8 @@ object SignInViewModelInjector {
         }
     }
 
-    private fun provideCustomerBalanceRepo(): CustomerBalanceRepository {
-        return CustomerBalanceRepository.instance.apply {
-            init(CustomerBalanceDataStoreImpl())
-        }
-    }
 
     fun getFactory(): ViewModelProvider.Factory {
-        return SignInViewModelFactory(provideUserAuthRepo(), provideCustomerBalanceRepo())
+        return SignInViewModelFactory(provideUserAuthRepo())
     }
 }

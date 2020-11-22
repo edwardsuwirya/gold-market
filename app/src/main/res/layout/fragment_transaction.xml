@@ -98,6 +98,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
                             android:background="@color/cardview_shadow_start_color"
+                            android:editable="false"
                             android:ems="10"
                             android:inputType="textPersonName"
                             android:padding="8dp"

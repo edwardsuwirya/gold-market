@@ -12,12 +12,11 @@ import kotlinx.coroutines.launch
 
 class SignInViewModel(
     private val userAuthRepo: UserAuthRepository,
-    private val customerBalanceRepo: CustomerBalanceRepository
 ) : ViewModel() {
     val userAuth: MutableLiveData<UserAuth> = MutableLiveData()
 
-    private val _response = MutableLiveData<AppState<Pair<Customer?, CustomerBalance?>>>()
-    val response: LiveData<AppState<Pair<Customer?, CustomerBalance?>>>
+    private val _response = MutableLiveData<AppState<Customer?>>()
+    val response: LiveData<AppState<Customer?>>
         get() = _response
 
 //    fun userAuthValidate(): Pair<Customer?, CustomerBalance?> {
@@ -39,8 +38,7 @@ class SignInViewModel(
                 userAuth.value?.userPassword ?: ""
             )
             if (customer != null) {
-                val balance = customerBalanceRepo.getCustomerBalance(customer.customerId)
-                _response.value = AppState.Success(Pair(customer, balance))
+                _response.value = AppState.Success(customer)
             } else {
                 _response.value = AppState.Error(Exception("Unauthorized"))
             }

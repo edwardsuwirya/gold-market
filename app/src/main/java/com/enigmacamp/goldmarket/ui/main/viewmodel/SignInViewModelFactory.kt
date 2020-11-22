@@ -6,12 +6,11 @@ import com.enigmacamp.goldmarket.data.repository.CustomerBalanceRepository
 import com.enigmacamp.goldmarket.data.repository.UserAuthRepository
 
 class SignInViewModelFactory(
-    private val userAuthRepo: UserAuthRepository,
-    private val customerBalanceRepo: CustomerBalanceRepository
+    private val userAuthRepo: UserAuthRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SignInViewModel::class.java)) {
-            return SignInViewModel(userAuthRepo, customerBalanceRepo) as T
+            return SignInViewModel(userAuthRepo) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

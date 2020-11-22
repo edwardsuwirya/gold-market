@@ -59,8 +59,8 @@ class SignInActivity : AppBaseActivity() {
                 is AppState.Success -> {
                     loadingDialog.dismiss()
                     it.data?.let {
-                        val (authCustomer, customerBalance) = it
-                        onStartWelcomeActivity(authCustomer, customerBalance)
+                        val authCustomer= it
+                        onStartWelcomeActivity(authCustomer)
                     }
                 }
                 is AppState.Error -> {
@@ -110,11 +110,10 @@ class SignInActivity : AppBaseActivity() {
         finish()
     }
 
-    fun onStartWelcomeActivity(customer: Customer?, customerBalance: CustomerBalance?) {
+    fun onStartWelcomeActivity(customer: Customer?) {
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         intent.putExtra(INTENT_AUTH_CUSTOMER_KEY, customer)
-        intent.putExtra(INTENT_CUSTOMER_BALANCE, customerBalance)
         startActivity(intent)
         finish()
     }
