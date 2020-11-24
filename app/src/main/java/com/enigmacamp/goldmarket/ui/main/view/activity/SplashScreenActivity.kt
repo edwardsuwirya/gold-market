@@ -22,13 +22,13 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     fun onStartWelcomeActivity() {
-        startActivity(Intent(this, SignInActivity::class.java))
-//        val intent = Intent(this, MainActivity::class.java)
-//        intent.putExtra(
-//            SignInActivity.INTENT_AUTH_CUSTOMER_KEY,
-//            Customer("123", "Edo", "", "edward.suwirya@enigmacamp.com")
-//        )
-//        startActivity(intent)
+//        startActivity(Intent(this, SignInActivity::class.java))
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra(
+            SignInActivity.INTENT_AUTH_CUSTOMER_KEY,
+            Customer("123", "Edo", "", "edward.suwirya@enigmacamp.com")
+        )
+        startActivity(intent)
         finish()
     }
 }

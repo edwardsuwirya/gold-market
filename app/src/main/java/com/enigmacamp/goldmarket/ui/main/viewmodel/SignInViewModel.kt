@@ -1,12 +1,12 @@
 package com.enigmacamp.goldmarket.ui.main.viewmodel
 
-import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.enigmacamp.goldmarket.data.model.AppState
 import com.enigmacamp.goldmarket.data.model.Customer
-import com.enigmacamp.goldmarket.data.model.CustomerBalance
 import com.enigmacamp.goldmarket.data.model.UserAuth
-import com.enigmacamp.goldmarket.data.repository.CustomerBalanceRepository
 import com.enigmacamp.goldmarket.data.repository.UserAuthRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
