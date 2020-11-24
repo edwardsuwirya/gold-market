@@ -4,43 +4,29 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.enigmacamp.goldmarket.R
+import com.enigmacamp.goldmarket.databinding.ActivitySignUpBinding
 import com.enigmacamp.goldmarket.ui.LoadingDialog
 import com.enigmacamp.goldmarket.ui.main.viewmodel.SignUpViewModel
-import com.enigmacamp.goldmarket.util.AppTextWatcher
-import com.google.android.material.textfield.TextInputLayout
 
 
 class SignUpActivity : AppCompatActivity() {
-    lateinit var signInButton: Button
-    lateinit var signUpButton: Button
+    private lateinit var binding: ActivitySignUpBinding
     lateinit var loadingDialog: AlertDialog
-    lateinit var tcButton: Button
-
-    lateinit var firstNameTextInput: TextInputLayout
-    lateinit var lastNameTextInput: TextInputLayout
-    lateinit var emailTextInput: TextInputLayout
-    lateinit var passwordTextInput: TextInputLayout
-
     lateinit var viewModel: SignUpViewModel
+
+    private val TAG = SignUpActivity::class.qualifiedName
 
     companion object {
         private const val ENIGMA_URL = "https://www.enigmacamp.com"
     }
 
     private fun initUi() {
-        firstNameTextInput = findViewById(R.id.first_name_textField)
-        lastNameTextInput = findViewById(R.id.last_name_textField)
-        emailTextInput = findViewById(R.id.email_textField)
-        passwordTextInput = findViewById(R.id.password_textField)
         loadingDialog = LoadingDialog.build(this)
-        signInButton = findViewById(R.id.signin_button)
-        signUpButton = findViewById(R.id.new_signup_button)
-        tcButton = findViewById(R.id.tc_button)
     }
 
     private fun initViewModel() {
@@ -49,49 +35,49 @@ class SignUpActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
         initUi()
         initViewModel()
+        binding.apply {
+            customer = viewModel.customer
+            signinButton.setOnClickListener {
+                onGotoSignInActivity()
+            }
 
-        firstNameTextInput.editText?.addTextChangedListener(
-            AppTextWatcher {
-                afterChanged = { s -> viewModel.customer.firstName = s.toString() }
+            newSignupButton.setOnClickListener {
+                Log.d(TAG, viewModel.customer.toString())
+                onShowLoadingDialog()
+                onCloseLoadingDialog()
             }
-        )
-        lastNameTextInput.editText?.addTextChangedListener(
-            AppTextWatcher {
-                afterChanged = { s -> viewModel.customer.lastName = s.toString() }
+            tcButton.setOnClickListener {
+                onGoToTermConditionActivity()
             }
-        )
-        emailTextInput.editText?.addTextChangedListener(
-            AppTextWatcher {
-                afterChanged = { s -> viewModel.customer.email = s.toString() }
-            }
-        )
-        passwordTextInput.editText?.addTextChangedListener(
-            AppTextWatcher {
-                afterChanged = { s -> viewModel.customer.password = s.toString() }
-            }
-        )
-        signInButton.setOnClickListener {
-            val intent = Intent(this, SignInActivity::class.java)
-            //Prevent multiple new activity
-            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(intent)
-        }
-
-        signUpButton.setOnClickListener {
-            loadingDialog.show()
-        }
-
-        tcButton.setOnClickListener {
-            val intent = Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse(ENIGMA_URL)
-            )
-            startActivity(intent)
         }
         print("onCreate")
+    }
+
+    private fun onShowLoadingDialog() {
+        loadingDialog.show()
+    }
+
+    private fun onCloseLoadingDialog() {
+        loadingDialog.dismiss()
+    }
+
+    private fun onGoToTermConditionActivity() {
+        val intent = Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse(ENIGMA_URL)
+        )
+        startActivity(intent)
+    }
+
+    private fun onGotoSignInActivity() {
+        val intent = Intent(this, SignInActivity::class.java)
+        //Prevent multiple new activity
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent)
     }
 
 //    override fun onBackPressed() {
@@ -102,10 +88,6 @@ class SignUpActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        firstNameTextInput.editText?.setText(viewModel.customer.firstName)
-        lastNameTextInput.editText?.setText(viewModel.customer.lastName)
-        emailTextInput.editText?.setText(viewModel.customer.email)
-        passwordTextInput.editText?.setText(viewModel.customer.password)
         print("onStart, Object Id : ${this.toString()}")
     }
 

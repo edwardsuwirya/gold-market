@@ -12,7 +12,6 @@ import com.enigmacamp.goldmarket.databinding.ActivityWelcomeBinding
 
 class WelcomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWelcomeBinding
-    lateinit var beginButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
