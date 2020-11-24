@@ -9,6 +9,10 @@ android {
     compileSdkVersion(29)
     buildToolsVersion("29.0.3")
 
+    buildFeatures {
+        dataBinding = true
+    }
+
     defaultConfig {
         applicationId = "com.enigmacamp.goldmarket"
         minSdkVersion(23)

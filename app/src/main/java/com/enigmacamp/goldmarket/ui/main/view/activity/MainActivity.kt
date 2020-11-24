@@ -19,10 +19,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppBaseActivity() {
     lateinit var navController: NavController
-    private var name = ""
     lateinit var authCustomer: Customer
 
-    val TAG = "MainActivity"
+    val TAG = MainActivity::class.qualifiedName
 
     lateinit var homeFragment: Fragment
     lateinit var historyFragment: Fragment
@@ -35,13 +34,12 @@ class MainActivity : AppBaseActivity() {
         const val HOME_TITLE = "Gold Market"
         const val HISTORY_TITLE = "History"
         const val PROFILE_TITLE = "Profile"
-        const val NEED_REFRESH_KEY = "need_refresh_key"
     }
 
     private fun initUi() {
-        homeFragment = HomeFragment()
-        historyFragment = HistoryFragment()
-        profileFragment = ProfileFragment()
+        homeFragment = HomeFragment.newInstance()
+        historyFragment = HistoryFragment.newInstance()
+        profileFragment = ProfileFragment.newInstance()
 
         navController = Navigation.findNavController(this, R.id.nav_fragment)
     }
@@ -53,7 +51,7 @@ class MainActivity : AppBaseActivity() {
         initUi()
 
         authCustomer = intent.getParcelableExtra(SignInActivity.INTENT_AUTH_CUSTOMER_KEY)
-        name = "${authCustomer.firstName} ${authCustomer.lastName}"
+        val name = "${authCustomer.firstName} ${authCustomer.lastName}"
         Log.d(TAG, name)
 
         navController.setGraph(

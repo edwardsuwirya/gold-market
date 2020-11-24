@@ -5,22 +5,20 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.enigmacamp.goldmarket.R
+import com.enigmacamp.goldmarket.databinding.ActivityWelcomeBinding
+
 
 class WelcomeActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityWelcomeBinding
     lateinit var beginButton: Button
-
-    private fun initUi() {
-        beginButton = findViewById(R.id.welcome_button)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_welcome)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_welcome)
 
-        initUi()
-
-        beginButton.setOnClickListener {
+        binding.welcomeButton.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
 //            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
             //Prevent multiple new activity

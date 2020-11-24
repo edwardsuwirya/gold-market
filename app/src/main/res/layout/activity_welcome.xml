@@ -1,72 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.main.view.activity.WelcomeActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/welcome_image"
+    <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:contentDescription="@string/welcome_image"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/gold" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.main.view.activity.WelcomeActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <TextView
-            android:id="@+id/welcome_text_line_1"
+        <ImageView
+            android:id="@+id/welcome_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="30dp"
-            android:paddingEnd="10dp"
-            android:text="@string/welcome_text1_begin"
-            android:textColor="@color/primary"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/welcome_text_line_2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            tools:layout_editor_absoluteX="0dp" />
-
-        <Button
-            android:id="@+id/welcome_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/accent"
-            android:text="@string/button_begin"
-            android:textColor="@color/primary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/welcome_text_line_2" />
+            android:contentDescription="@string/welcome_image"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/gold" />
 
-        <TextView
-            android:id="@+id/welcome_text_line_2"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="30dp"
-            android:paddingEnd="10dp"
-            android:text="@string/welcome_text2_begin"
-            android:textColor="@color/primary"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/welcome_button"
-            app:layout_constraintTop_toBottomOf="@+id/welcome_text_line_1"
-            tools:layout_editor_absoluteX="0dp" />
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/welcome_text_line_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="30dp"
+                android:paddingEnd="10dp"
+                android:text="@string/welcome_text1_begin"
+                android:textColor="@color/primary"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/welcome_text_line_2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:layout_editor_absoluteX="0dp" />
 
-</LinearLayout>
+            <Button
+                android:id="@+id/welcome_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/accent"
+                android:text="@string/button_begin"
+                android:textColor="@color/primary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/welcome_text_line_2" />
+
+            <TextView
+                android:id="@+id/welcome_text_line_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="30dp"
+                android:paddingEnd="10dp"
+                android:text="@string/welcome_text2_begin"
+                android:textColor="@color/primary"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/welcome_button"
+                app:layout_constraintTop_toBottomOf="@+id/welcome_text_line_1"
+                tools:layout_editor_absoluteX="0dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</layout>
