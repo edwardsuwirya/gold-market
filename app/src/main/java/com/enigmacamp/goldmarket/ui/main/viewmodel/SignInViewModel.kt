@@ -1,5 +1,6 @@
 package com.enigmacamp.goldmarket.ui.main.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.enigmacamp.goldmarket.data.model.AppState
 import com.enigmacamp.goldmarket.data.model.Customer
@@ -13,7 +14,14 @@ import kotlinx.coroutines.launch
 class SignInViewModel(
     private val userAuthRepo: UserAuthRepository,
 ) : ViewModel() {
-    val userAuth: MutableLiveData<UserAuth> = MutableLiveData()
+    private val TAG = SignInViewModel::class.qualifiedName
+
+    var userAuth = UserAuth()
+    var userAuthLiveData: MutableLiveData<UserAuth> = MutableLiveData()
+
+    init {
+        userAuthLiveData.value = userAuth
+    }
 
     private val _response = MutableLiveData<AppState<Customer?>>()
     val response: LiveData<AppState<Customer?>>
@@ -34,8 +42,8 @@ class SignInViewModel(
             _response.value = AppState.Loading()
             delay(1000)
             val customer = userAuthRepo.getUserAuth(
-                userAuth.value?.userName ?: "",
-                userAuth.value?.userPassword ?: ""
+                userAuthLiveData.value?.userName ?: "",
+                userAuthLiveData.value?.userPassword ?: ""
             )
             if (customer != null) {
                 _response.value = AppState.Success(customer)

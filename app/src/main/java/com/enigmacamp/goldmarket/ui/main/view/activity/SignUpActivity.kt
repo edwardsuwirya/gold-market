@@ -40,7 +40,7 @@ class SignUpActivity : AppCompatActivity() {
         initUi()
         initViewModel()
         binding.apply {
-            customer = viewModel.customer
+            signUpViewModel = viewModel
             signinButton.setOnClickListener {
                 onGotoSignInActivity()
             }

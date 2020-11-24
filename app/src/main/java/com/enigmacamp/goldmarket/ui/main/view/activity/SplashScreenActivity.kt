@@ -22,7 +22,7 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     fun onStartWelcomeActivity() {
-        startActivity(Intent(this, WelcomeActivity::class.java))
+        startActivity(Intent(this, SignInActivity::class.java))
 //        val intent = Intent(this, MainActivity::class.java)
 //        intent.putExtra(
 //            SignInActivity.INTENT_AUTH_CUSTOMER_KEY,

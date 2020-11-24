@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
-            name="customer"
-            type="com.enigmacamp.goldmarket.data.model.Customer" />
+            name="signUpViewModel"
+            type="com.enigmacamp.goldmarket.ui.main.viewmodel.SignUpViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -63,7 +64,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@={customer.firstName}" />
+                        android:text="@{signUpViewModel.customer.firstName}"
+                        app:textChangedListener="@{signUpViewModel.firstNameTextWatcher}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -78,7 +80,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@={customer.lastName}"/>
+                        android:text="@{signUpViewModel.customer.lastName}"
+                        app:textChangedListener="@{signUpViewModel.lastNameTextWatcher}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -93,7 +96,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@={customer.email}"/>
+                        android:text="@{signUpViewModel.customer.email}"
+                        app:textChangedListener="@{signUpViewModel.emailTextWatcher}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -111,7 +115,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
-                        android:text="@={customer.password}"/>
+                        android:text="@{signUpViewModel.customer.password}"
+                        app:textChangedListener="@{signUpViewModel.passwordTextWatcher}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
