@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,21 +11,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.enigmacamp.goldmarket.R
 import com.enigmacamp.goldmarket.data.model.Customer
+import com.enigmacamp.goldmarket.databinding.FragmentProfileBinding
 import com.enigmacamp.goldmarket.ui.base.AppBaseFragment
 import com.enigmacamp.goldmarket.ui.main.view.activity.MainActivity
 import com.enigmacamp.goldmarket.ui.main.viewmodel.ProfileFragmentViewModel
 import com.google.android.material.snackbar.Snackbar
-import java.io.File
-import java.io.FileOutputStream
 
 
 /**
@@ -36,25 +34,12 @@ import java.io.FileOutputStream
  */
 class ProfileFragment : AppBaseFragment() {
     // TODO: Rename and change types of parameters
-
-    lateinit var customerName: TextView
-    lateinit var customerEmail: TextView
-    lateinit var statusTextView: TextView
-    lateinit var uploadIdButton: Button
-    lateinit var profileImage: ImageView
-    lateinit var idImage: ImageView
-
+    private lateinit var binding: FragmentProfileBinding
     lateinit var viewModel: ProfileFragmentViewModel
 
-    val TAG = "ProfileFragment"
+    val TAG = ProfileFragment::class.qualifiedName
 
     private fun initUi() {
-        customerName = requireView().findViewById(R.id.customerName_textView)
-        customerEmail = requireView().findViewById(R.id.customerEmail_textView)
-        uploadIdButton = requireView().findViewById(R.id.upload_id_button)
-        profileImage = requireView().findViewById(R.id.profile_imageView)
-        statusTextView = requireView().findViewById(R.id.status_textView)
-        idImage = requireView().findViewById(R.id.id_imageView)
     }
 
     private fun initViewModel() {
@@ -126,8 +111,8 @@ class ProfileFragment : AppBaseFragment() {
 
     private fun loadImage(imageName: String) {
         val imageFile = viewModel.getImageDir(requireContext(), imageName)
-        idImage?.setImageURI(null)
-        idImage?.setImageURI(Uri.fromFile(imageFile));
+        binding.idImageView.setImageURI(null)
+        binding.idImageView.setImageURI(Uri.fromFile(imageFile));
         //Alternative way using BitmapFactory
         //val myBitmap = BitmapFactory.decodeFile(imageFile?.getAbsolutePath())
         //idImage?.setImageBitmap(myBitmap)
@@ -138,7 +123,8 @@ class ProfileFragment : AppBaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -148,28 +134,33 @@ class ProfileFragment : AppBaseFragment() {
         requireActivity().title = title
         val customer = arguments?.getParcelable<Customer>(MainActivity.PROFILE_KEY)
 
-        customerName.text = customer?.firstName ?: ""
-        customerEmail.text = customer?.email ?: ""
-
-        uploadIdButton.setOnClickListener {
-            val intent = Intent(
-                Intent.ACTION_GET_CONTENT,
-                MediaStore.Images.Media.INTERNAL_CONTENT_URI
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.apply {
+            binding.profileFragmentViewModel = viewModel
+            viewModel.setProfileInfo(
+                customer?.firstName ?: "",
+                customer?.email ?: "",
+                "Belum terverifikasi"
             )
-            intent.type = "image/*"
-            startActivityForResult(intent, ID_PHOTO)
-        }
 
-        profileImage.setOnClickListener {
-            val intent = Intent(
-                Intent.ACTION_GET_CONTENT,
-                MediaStore.Images.Media.INTERNAL_CONTENT_URI
-            )
-            intent.type = "image/*"
-            startActivityForResult(intent, PROFILE_PHOTO)
-        }
+            uploadIdButton.setOnClickListener {
+                val intent = Intent(
+                    Intent.ACTION_GET_CONTENT,
+                    MediaStore.Images.Media.INTERNAL_CONTENT_URI
+                )
+                intent.type = "image/*"
+                startActivityForResult(intent, ID_PHOTO)
+            }
 
-        statusTextView.text = "Belum terverifikasi"
+            profileImageView.setOnClickListener {
+                val intent = Intent(
+                    Intent.ACTION_GET_CONTENT,
+                    MediaStore.Images.Media.INTERNAL_CONTENT_URI
+                )
+                intent.type = "image/*"
+                startActivityForResult(intent, PROFILE_PHOTO)
+            }
+        }
 
         loadImage(ID_IMAGE_NAME)
     }
