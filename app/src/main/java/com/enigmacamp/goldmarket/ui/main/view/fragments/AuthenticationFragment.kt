@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.enigmacamp.goldmarket.ui.LoadingDialog
 import com.enigmacamp.goldmarket.ui.main.view.activity.MainActivity
 import com.enigmacamp.goldmarket.R
 import com.enigmacamp.goldmarket.ui.base.AppBaseFragment
+import com.enigmacamp.goldmarket.ui.main.viewmodel.AuthenticationViewModel
 import kotlinx.coroutines.*
 
 /**
@@ -27,7 +29,15 @@ class AuthenticationFragment : AppBaseFragment() {
     lateinit var cancelButton: Button
     lateinit var loadingDialog: AlertDialog
 
+    lateinit var viewModel: AuthenticationViewModel
+
+    private fun initViewModel() {
+        viewModel =
+            ViewModelProvider(requireActivity()).get(AuthenticationViewModel::class.java)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initViewModel()
         val sourceView = arguments?.getInt("TRANSACTION_KEY")
         val title = arguments?.getString(MainActivity.TITLE_KEY)
         loadingDialog = LoadingDialog.build(requireContext())
@@ -35,8 +45,8 @@ class AuthenticationFragment : AppBaseFragment() {
         okButton = requireView().findViewById(R.id.auth_button)
         okButton.setOnClickListener {
             loadingDialog.show()
+            viewModel.status = mapOf(sourceView!! to "OK")
             loadingDialog.dismiss()
-            findNavController().previousBackStackEntry?.savedStateHandle?.set("STATUS", "OK")
             findNavController().popBackStack(sourceView!!, false)
         }
         cancelButton = requireView().findViewById(R.id.cancel_button)

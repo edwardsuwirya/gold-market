@@ -9,13 +9,11 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.enigmacamp.goldmarket.R
 import com.enigmacamp.goldmarket.data.model.AppState
 import com.enigmacamp.goldmarket.data.model.Customer
-import com.enigmacamp.goldmarket.data.model.CustomerBalance
 import com.enigmacamp.goldmarket.ui.LoadingDialog
 import com.enigmacamp.goldmarket.ui.base.AppBaseFragment
 import com.enigmacamp.goldmarket.ui.main.view.activity.MainActivity
@@ -59,6 +57,7 @@ class HomeFragment : AppBaseFragment() {
     }
 
     private fun initViewModel() {
+
         viewmodel = ViewModelProvider(this, HomeFragmentViewModelInjector.getFactory()).get(
             HomeFragmentViewModel::class.java
         )

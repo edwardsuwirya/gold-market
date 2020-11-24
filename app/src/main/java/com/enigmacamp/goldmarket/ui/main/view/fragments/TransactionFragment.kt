@@ -17,6 +17,7 @@ import com.enigmacamp.goldmarket.data.model.Customer
 import com.enigmacamp.goldmarket.ui.LoadingDialog
 import com.enigmacamp.goldmarket.ui.base.AppBaseFragment
 import com.enigmacamp.goldmarket.ui.main.view.activity.MainActivity
+import com.enigmacamp.goldmarket.ui.main.viewmodel.AuthenticationViewModel
 import com.enigmacamp.goldmarket.ui.main.viewmodel.ProfileFragmentViewModel
 import com.enigmacamp.goldmarket.ui.main.viewmodel.TransactionFragmentViewModel
 import com.enigmacamp.goldmarket.ui.main.viewmodel.TransactionFragmentViewModelInjector
@@ -42,6 +43,7 @@ class TransactionFragment : AppBaseFragment() {
     lateinit var loadingDialog: AlertDialog
 
     lateinit var viewModel: TransactionFragmentViewModel
+    lateinit var authViewModel: AuthenticationViewModel
 
     val numberFormat = DecimalFormat("Rp #,###.00")
 
@@ -60,6 +62,8 @@ class TransactionFragment : AppBaseFragment() {
         viewModel = ViewModelProvider(this, TransactionFragmentViewModelInjector.getFactory()).get(
             TransactionFragmentViewModel::class.java
         )
+        authViewModel =
+            ViewModelProvider(requireActivity()).get(AuthenticationViewModel::class.java)
     }
 
     private fun subscribe() {
@@ -83,14 +87,10 @@ class TransactionFragment : AppBaseFragment() {
                 }
             }
         })
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("STATUS")
-            ?.observe(
-                viewLifecycleOwner
-            ) { result ->
-                if (result == "OK") {
-                    viewModel.submitTransaction()
-                }
-            }
+        if (authViewModel.status[REQUEST_CODE] == "OK") {
+            viewModel.submitTransaction()
+            authViewModel.clearStatus()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
