@@ -38,5 +38,6 @@
 
     <string name="zero_value_label">0.0</string>
     <string name="gram_format">%.4f gram</string>
+    <string name="gram_format_2">%.4f</string>
     <string name="number_format">Rp %,.0f</string>
 </resources>

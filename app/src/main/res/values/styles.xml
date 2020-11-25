@@ -13,8 +13,20 @@
     <style name="SplashScreenStyle" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:windowBackground">@drawable/logo</item>
     </style>
+
     <style name="ButtonCirleStyle" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
+    </style>
+    <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TextInputLayout</item>
+    </style>
+
+    <style name="ThemeOverlay.App.TextInputLayout" parent="">
+        <item name="colorPrimary">@color/accent</item>
+        <item name="colorOnSurface">@android:color/white</item>
+        <item name="colorError">@color/accent</item>
+
+        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox</item>
     </style>
 </resources>

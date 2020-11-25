@@ -1,6 +1,7 @@
 package com.enigmacamp.goldmarket.ui.main.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ import com.enigmacamp.goldmarket.ui.main.viewmodel.HomeFragmentViewModelInjector
  */
 class HomeFragment : AppBaseFragment() {
     // TODO: Rename and change types of parameters
+    val TAG = HomeFragment::class.qualifiedName
     private lateinit var binding: FragmentHomeBinding
     lateinit var loadingDialog: AlertDialog
     lateinit var viewmodel: HomeFragmentViewModel
@@ -75,11 +77,12 @@ class HomeFragment : AppBaseFragment() {
         binding.apply {
             homeFragmentViewModel = viewmodel
             buyButton.setOnClickListener {
+                Log.d(TAG, goldBuyPrice.toString())
                 findNavController().navigate(
                     R.id.action_homeFragment_to_transactionFragment,
                     bundleOf(
                         TRX_TYPE_KEY to TRX_BUY,
-                        TRX_GOLD_PRICE to goldBuyPrice,
+                        TRX_GOLD_PRICE to viewmodel.goldPrice.value?.buyingPrice?.toFloat(),
                         CUSTOMER_KEY to authCustomer,
                         MainActivity.TITLE_KEY to TRX_BUY
                     )
@@ -91,7 +94,7 @@ class HomeFragment : AppBaseFragment() {
                     R.id.action_homeFragment_to_transactionFragment,
                     bundleOf(
                         TRX_TYPE_KEY to TRX_SELL,
-                        TRX_GOLD_PRICE to goldSellPrice,
+                        TRX_GOLD_PRICE to viewmodel.goldPrice.value?.sellingPrice?.toFloat(),
                         CUSTOMER_KEY to authCustomer,
                         MainActivity.TITLE_KEY to TRX_SELL
                     )
